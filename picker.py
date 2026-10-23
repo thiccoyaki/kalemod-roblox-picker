@@ -60,57 +60,117 @@ def save(path, obj):
 
 # ---------- YouTube ----------
 
-def yt_get(endpoint, params):
+class YouTubeError(Exception):
+    pass
+
+
+def yt_get(endpoint, params, retries=3):
+    """GET a YouTube Data API endpoint, retrying YouTube's flaky 400/5xx errors."""
     params = {**params, "key": YT_KEY}
-    r = requests.get(f"https://www.googleapis.com/youtube/v3/{endpoint}", params=params, timeout=30)
-    if r.status_code != 200:
-        sys.exit(f"YouTube API error {r.status_code}: {r.text[:500]}")
-    return r.json()
+    for attempt in range(retries + 1):
+        try:
+            r = requests.get(f"https://www.googleapis.com/youtube/v3/{endpoint}", params=params, timeout=30)
+        except requests.RequestException as e:
+            err = f"network error: {e}"
+        else:
+            if r.status_code == 200:
+                return r.json()
+            err = f"{r.status_code}: {r.text[:300]}"
+            # 403 = bad key / quota, 404 = missing; retrying won't help
+            if r.status_code in (401, 403, 404):
+                sys.exit(f"YouTube API error {err}")
+        if attempt < retries:
+            time.sleep(5 * (attempt + 1))
+    raise YouTubeError(err)
 
 
-def fetch_comments(since_iso):
-    """All non-owner comments (top-level + returned replies) newer than since_iso."""
-    out, token, pages = [], None, 0
-    while pages < MAX_PAGES:
-        params = {
-            "part": "snippet,replies",
-            "allThreadsRelatedToChannelId": CHANNEL_ID,
-            "order": "time",
-            "maxResults": 100,
-            "textFormat": "plainText",
-        }
+def _collect(thread, since_iso, out, seen):
+    top = thread["snippet"]["topLevelComment"]
+    video_id = thread["snippet"].get("videoId", "")
+    for c in [top] + thread.get("replies", {}).get("comments", []):
+        s = c["snippet"]
+        published = s.get("publishedAt", "")
+        if published <= since_iso or c["id"] in seen:
+            continue
+        if (s.get("authorChannelId") or {}).get("value") == CHANNEL_ID:
+            continue
+        text = (s.get("textOriginal") or s.get("textDisplay") or "").strip()
+        if text:
+            seen.add(c["id"])
+            out.append({
+                "id": c["id"],
+                "text": " ".join(text.split()),
+                "author": s.get("authorDisplayName", ""),
+                "published": published,
+                "video_id": video_id,
+            })
+    return top["snippet"].get("publishedAt", "")
+
+
+def _walk_threads(base_params, since_iso, out, seen, budget):
+    """Page newest-first through commentThreads. Returns pages used. Raises YouTubeError."""
+    token, pages = None, 0
+    while pages < budget:
+        params = {**base_params, "part": "snippet,replies", "order": "time",
+                  "maxResults": 100, "textFormat": "plainText"}
         if token:
             params["pageToken"] = token
         data = yt_get("commentThreads", params)
         pages += 1
         reached_old = False
         for thread in data.get("items", []):
-            top = thread["snippet"]["topLevelComment"]
-            video_id = thread["snippet"].get("videoId", "")
-            items = [top] + thread.get("replies", {}).get("comments", [])
-            for c in items:
-                s = c["snippet"]
-                published = s.get("publishedAt", "")
-                if published <= since_iso:
-                    continue
-                author_channel = (s.get("authorChannelId") or {}).get("value")
-                if author_channel == CHANNEL_ID:
-                    continue
-                text = (s.get("textOriginal") or s.get("textDisplay") or "").strip()
-                if text:
-                    out.append({
-                        "id": c["id"],
-                        "text": " ".join(text.split()),
-                        "author": s.get("authorDisplayName", ""),
-                        "published": published,
-                        "video_id": video_id,
-                    })
-            if top["snippet"].get("publishedAt", "") <= since_iso:
+            if _collect(thread, since_iso, out, seen) <= since_iso:
                 reached_old = True
         token = data.get("nextPageToken")
         if not token or reached_old:
             break
-    print(f"Read {pages} page(s) of comment threads, {len(out)} comments in window.")
+    return pages
+
+
+def recent_video_ids(since_iso):
+    """Videos uploaded since since_iso, from the channel's uploads playlist."""
+    uploads = "UU" + CHANNEL_ID[2:]
+    ids, token = [], None
+    while True:
+        params = {"part": "contentDetails", "playlistId": uploads, "maxResults": 50}
+        if token:
+            params["pageToken"] = token
+        data = yt_get("playlistItems", params)
+        done = False
+        for it in data.get("items", []):
+            when = it["contentDetails"].get("videoPublishedAt", "")
+            if when and when <= since_iso:
+                done = True
+                continue
+            ids.append(it["contentDetails"]["videoId"])
+        token = data.get("nextPageToken")
+        if done or not token:
+            return ids
+
+
+def fetch_comments(since_iso):
+    """All non-owner comments (top-level + returned replies) newer than since_iso."""
+    out, seen = [], set()
+    try:
+        pages = _walk_threads({"allThreadsRelatedToChannelId": CHANNEL_ID}, since_iso, out, seen, MAX_PAGES)
+        print(f"Read {pages} page(s) of channel comment threads, {len(out)} comments in window.")
+        return out
+    except YouTubeError as e:
+        print(f"YouTube's channel-wide comment feed failed after {len(out)} comments ({e}).")
+        print("Switching to reading each recent video's comments.")
+
+    videos = recent_video_ids(since_iso)
+    print(f"{len(videos)} videos uploaded in the window.")
+    failed = 0
+    for n, vid in enumerate(videos, 1):
+        try:
+            _walk_threads({"videoId": vid}, since_iso, out, seen, MAX_PAGES)
+        except YouTubeError as e:
+            failed += 1
+            print(f"Skipped video {vid}: {e}")
+        if n % 10 == 0:
+            print(f"Read comments on {n}/{len(videos)} videos, {len(out)} comments so far.")
+    print(f"Done: {len(out)} comments in window ({failed} video(s) skipped).")
     return out
 
 
