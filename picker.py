@@ -265,6 +265,7 @@ def ask_gemini(batch):
                 continue
             sys.exit(f"Gemini kept timing out: {e}")
         if r.status_code == 200:
+            print(f"Gemini {gemini_model} answered in {r.elapsed.total_seconds():.0f}s.")
             break
         if r.status_code == 404 and gemini_model not in tried:
             tried.add(gemini_model)

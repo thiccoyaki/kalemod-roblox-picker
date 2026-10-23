@@ -34,7 +34,10 @@ jobs:
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python picker.py ${{ inputs.reset && '--reset' || '' }}
+        run: |
+          mkdir -p data
+          set -o pipefail
+          python -u picker.py ${{ inputs.reset && '--reset' || '' }} 2>&1 | while IFS= read -r line; do printf '%s %s\n' "$(TZ=Asia/Manila date +%H:%M:%S)" "$line"; done | tee data/last_run.log
 
       - name: Commit results
         if: always()
