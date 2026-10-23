@@ -33,7 +33,7 @@ LOOKBACK_DAYS = int(os.environ.get("LOOKBACK_DAYS", "30"))
 MAX_PAGES = int(os.environ.get("MAX_PAGES", "200"))  # 1 quota unit each, 10,000/day free
 LOCAL_TZ = timezone(timedelta(hours=8))  # Cebu
 HAIKU_MODEL = os.environ.get("HAIKU_MODEL", "claude-haiku-5-5")
-BATCH = 150
+BATCH = 100
 
 YT_KEY = os.environ.get("YT_API_KEY", "")
 ANTHROPIC_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
@@ -255,7 +255,15 @@ def ask_gemini(batch):
     attempt = 0
     while True:
         url = f"{GEMINI_BASE}/models/{gemini_model}:generateContent"
-        r = requests.post(url, params={"key": GEMINI_KEY}, json=body, timeout=120)
+        try:
+            r = requests.post(url, params={"key": GEMINI_KEY}, json=body, timeout=180)
+        except requests.RequestException as e:
+            if attempt < 5:
+                attempt += 1
+                print(f"Gemini request failed ({type(e).__name__}), retrying in {15 * attempt}s.")
+                time.sleep(15 * attempt)
+                continue
+            sys.exit(f"Gemini kept timing out: {e}")
         if r.status_code == 200:
             break
         if r.status_code == 404 and gemini_model not in tried:
@@ -265,8 +273,9 @@ def ask_gemini(batch):
                 print(f"Gemini model {gemini_model} isn't available, switching to {nxt}.")
                 gemini_model = nxt
                 continue
-        if (r.status_code == 429 or r.status_code >= 500) and attempt < 4:
+        if (r.status_code == 429 or r.status_code >= 500) and attempt < 5:
             attempt += 1
+            print(f"Gemini returned {r.status_code}, retrying in {20 * attempt}s.")
             time.sleep(20 * attempt)
             continue
         sys.exit(f"Gemini API error {r.status_code} ({gemini_model}): {r.text[:500]}")
