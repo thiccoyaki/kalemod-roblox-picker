@@ -38,7 +38,7 @@ BATCH = 150
 YT_KEY = os.environ.get("YT_API_KEY", "")
 ANTHROPIC_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL") or "gemini-3.8-flash"
 GEMINI_GAP_SECONDS = 7  # stay under the free tier's requests-per-minute limit
 
 UNAME = re.compile(r"^(?=.{3,20}$)[A-Za-z0-9]+(?:_[A-Za-z0-9]+)?$")
@@ -162,23 +162,54 @@ def ask_haiku(batch):
         return []
 
 
+gemini_model = GEMINI_MODEL
+GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta"
+
+
+def pick_gemini_model(exclude):
+    """Find a current Flash model this key can use, newest first."""
+    r = requests.get(f"{GEMINI_BASE}/models", params={"key": GEMINI_KEY, "pageSize": 200}, timeout=30)
+    if r.status_code != 200:
+        return None
+    names = [m["name"].split("/", 1)[-1] for m in r.json().get("models", [])
+             if "generateContent" in m.get("supportedGenerationMethods", [])]
+    flash = [n for n in names if "flash" in n and n not in exclude
+             and not any(x in n for x in ("lite", "image", "tts", "live", "audio", "thinking", "exp"))]
+
+    def version(n):
+        m = re.search(r"gemini-(\d+(?:\.\d+)?)", n)
+        return (float(m.group(1)) if m else 0, "preview" not in n, -len(n))
+
+    flash.sort(key=version, reverse=True)
+    return flash[0] if flash else None
+
+
 def ask_gemini(batch):
+    global gemini_model
     lines = "\n".join(f"{i}\t{c['text'][:300]}" for i, c in enumerate(batch))
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
     body = {
         "contents": [{"parts": [{"text": PROMPT + lines}]}],
         "generationConfig": {"responseMimeType": "application/json", "temperature": 0},
     }
-    for attempt in range(4):
+    tried = set()
+    attempt = 0
+    while True:
+        url = f"{GEMINI_BASE}/models/{gemini_model}:generateContent"
         r = requests.post(url, params={"key": GEMINI_KEY}, json=body, timeout=120)
-        if r.status_code == 429 or r.status_code >= 500:
-            time.sleep(20 * (attempt + 1))
+        if r.status_code == 200:
+            break
+        if r.status_code == 404 and gemini_model not in tried:
+            tried.add(gemini_model)
+            nxt = pick_gemini_model(tried)
+            if nxt:
+                print(f"Gemini model {gemini_model} isn't available, switching to {nxt}.")
+                gemini_model = nxt
+                continue
+        if (r.status_code == 429 or r.status_code >= 500) and attempt < 4:
+            attempt += 1
+            time.sleep(20 * attempt)
             continue
-        if r.status_code != 200:
-            sys.exit(f"Gemini API error {r.status_code}: {r.text[:500]}")
-        break
-    else:
-        sys.exit("Gemini API kept refusing (rate limit). Try again later.")
+        sys.exit(f"Gemini API error {r.status_code} ({gemini_model}): {r.text[:500]}")
     parts = (r.json().get("candidates") or [{}])[0].get("content", {}).get("parts", [])
     text = "".join(p.get("text", "") for p in parts)
     m = re.search(r"\[.*\]", text, re.S)
@@ -188,10 +219,13 @@ def ask_gemini(batch):
         return []
 
 
+use_claude = bool(ANTHROPIC_KEY)
+
+
 def find_usernames(comments):
     """Returns {comment_id: username or None} for every comment given."""
+    global use_claude
     result = {c["id"]: None for c in comments}
-    use_claude = bool(ANTHROPIC_KEY)
     method = "Claude Haiku" if use_claude else "Gemini" if GEMINI_KEY else "pattern matching"
     print(f"Finding usernames with {method}.")
     for start in range(0, len(comments), BATCH):
@@ -267,31 +301,40 @@ def main():
     scanned = load(SCANNED_FILE, {})  # comment_id -> published
     comments = fetch_comments(window_start)
     new = [c for c in comments if c["id"] not in scanned]
-    found = find_usernames(new) if new else {}
+    total_found = 0
+    CHUNK = BATCH * 10  # save progress every 10 batches
 
-    for c in new:
-        scanned[c["id"]] = c["published"]
-        u = found.get(c["id"])
-        if not u:
-            continue
-        key = u.lower()
-        cur = candidates.get(key)
-        if cur and cur.get("last_mentioned_at", "") >= c["published"]:
-            continue
-        candidates[key] = {
-            "username": u,
-            "author": c["author"],
-            "snippet": c["text"][:160],
-            "video_id": c["video_id"],
-            "last_mentioned_at": c["published"],
-            "first_seen_at": (cur or {}).get("first_seen_at") or now.isoformat(),
-            "picked_at": (cur or {}).get("picked_at"),
-            "pick_count": (cur or {}).get("pick_count", 0),
-        }
-    # keep the scanned list small
-    scanned = {k: v for k, v in scanned.items() if v > window_start}
-    save(SCANNED_FILE, scanned)
-    print(f"{sum(1 for v in found.values() if v)} usernames found in {len(new)} new comments.")
+    def merge(chunk, found):
+        nonlocal_found = 0
+        for c in chunk:
+            scanned[c["id"]] = c["published"]
+            u = found.get(c["id"])
+            if not u:
+                continue
+            nonlocal_found += 1
+            key = u.lower()
+            cur = candidates.get(key)
+            if cur and cur.get("last_mentioned_at", "") >= c["published"]:
+                continue
+            candidates[key] = {
+                "username": u,
+                "author": c["author"],
+                "snippet": c["text"][:160],
+                "video_id": c["video_id"],
+                "last_mentioned_at": c["published"],
+                "first_seen_at": (cur or {}).get("first_seen_at") or now.isoformat(),
+                "picked_at": (cur or {}).get("picked_at"),
+                "pick_count": (cur or {}).get("pick_count", 0),
+            }
+        return nonlocal_found
+
+    for i in range(0, len(new), CHUNK):
+        chunk = new[i:i + CHUNK]
+        total_found += merge(chunk, find_usernames(chunk))
+        # save progress so a failure later doesn't redo this chunk
+        save(SCANNED_FILE, {k: v for k, v in scanned.items() if v > window_start})
+        save(CANDIDATES_FILE, candidates)
+    print(f"{total_found} usernames found in {len(new)} new comments.")
 
     # 2. Pick.
     if not args.no_pick:

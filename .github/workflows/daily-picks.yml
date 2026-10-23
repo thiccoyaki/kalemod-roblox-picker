@@ -37,9 +37,11 @@ jobs:
         run: python picker.py ${{ inputs.reset && '--reset' || '' }}
 
       - name: Commit results
+        if: always()
         run: |
           git config user.name "kalemod-picker"
           git config user.email "actions@users.noreply.github.com"
           git add data picks
           git diff --cached --quiet || git commit -m "Picks for $(TZ=Asia/Manila date +%F)"
+          git pull --rebase -q || true
           git push
