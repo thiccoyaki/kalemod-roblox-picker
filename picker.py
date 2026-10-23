@@ -153,7 +153,7 @@ def ask_haiku(batch):
         timeout=120,
     )
     if r.status_code != 200:
-        sys.exit(f"Anthropic API error {r.status_code}: {r.text[:500]}")
+        raise RuntimeError(f"Anthropic API error {r.status_code}: {r.text[:300]}")
     text = "".join(b.get("text", "") for b in r.json().get("content", []))
     m = re.search(r"\[.*\]", text, re.S)
     try:
@@ -191,12 +191,20 @@ def ask_gemini(batch):
 def find_usernames(comments):
     """Returns {comment_id: username or None} for every comment given."""
     result = {c["id"]: None for c in comments}
-    method = "Claude Haiku" if ANTHROPIC_KEY else "Gemini" if GEMINI_KEY else "pattern matching"
+    use_claude = bool(ANTHROPIC_KEY)
+    method = "Claude Haiku" if use_claude else "Gemini" if GEMINI_KEY else "pattern matching"
     print(f"Finding usernames with {method}.")
     for start in range(0, len(comments), BATCH):
         batch = comments[start:start + BATCH]
-        if ANTHROPIC_KEY:
-            hits = ask_haiku(batch)
+        hits = None
+        if use_claude:
+            try:
+                hits = ask_haiku(batch)
+            except RuntimeError as e:
+                use_claude = False
+                print(f"{e}\nClaude isn't usable, switching to {'Gemini' if GEMINI_KEY else 'pattern matching'}.")
+        if hits is not None:
+            pass
         elif GEMINI_KEY:
             if start:
                 time.sleep(GEMINI_GAP_SECONDS)
