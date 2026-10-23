@@ -1,7 +1,8 @@
 """Pick 20 random Roblox usernames a day from @kalemod comments.
 
 Pulls the last LOOKBACK_DAYS of comments with the YouTube Data API, finds the
-commenter's own Roblox username with Claude Haiku (pattern matching if no key),
+commenter's own Roblox username with Claude Haiku or Gemini (pattern matching if
+neither key is set),
 and picks DAILY random usernames nobody has picked before. Picked usernames
 stay out until you run with --reset.
 
@@ -14,6 +15,7 @@ import os
 import random
 import re
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -35,6 +37,9 @@ BATCH = 150
 
 YT_KEY = os.environ.get("YT_API_KEY", "")
 ANTHROPIC_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "")
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+GEMINI_GAP_SECONDS = 7  # stay under the free tier's requests-per-minute limit
 
 UNAME = re.compile(r"^(?=.{3,20}$)[A-Za-z0-9]+(?:_[A-Za-z0-9]+)?$")
 
@@ -157,13 +162,45 @@ def ask_haiku(batch):
         return []
 
 
+def ask_gemini(batch):
+    lines = "\n".join(f"{i}\t{c['text'][:300]}" for i, c in enumerate(batch))
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
+    body = {
+        "contents": [{"parts": [{"text": PROMPT + lines}]}],
+        "generationConfig": {"responseMimeType": "application/json", "temperature": 0},
+    }
+    for attempt in range(4):
+        r = requests.post(url, params={"key": GEMINI_KEY}, json=body, timeout=120)
+        if r.status_code == 429 or r.status_code >= 500:
+            time.sleep(20 * (attempt + 1))
+            continue
+        if r.status_code != 200:
+            sys.exit(f"Gemini API error {r.status_code}: {r.text[:500]}")
+        break
+    else:
+        sys.exit("Gemini API kept refusing (rate limit). Try again later.")
+    parts = (r.json().get("candidates") or [{}])[0].get("content", {}).get("parts", [])
+    text = "".join(p.get("text", "") for p in parts)
+    m = re.search(r"\[.*\]", text, re.S)
+    try:
+        return json.loads(m.group(0)) if m else []
+    except json.JSONDecodeError:
+        return []
+
+
 def find_usernames(comments):
     """Returns {comment_id: username or None} for every comment given."""
     result = {c["id"]: None for c in comments}
+    method = "Claude Haiku" if ANTHROPIC_KEY else "Gemini" if GEMINI_KEY else "pattern matching"
+    print(f"Finding usernames with {method}.")
     for start in range(0, len(comments), BATCH):
         batch = comments[start:start + BATCH]
         if ANTHROPIC_KEY:
             hits = ask_haiku(batch)
+        elif GEMINI_KEY:
+            if start:
+                time.sleep(GEMINI_GAP_SECONDS)
+            hits = ask_gemini(batch)
         else:
             hits = []
             for i, c in enumerate(batch):
