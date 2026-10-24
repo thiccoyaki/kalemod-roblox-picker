@@ -33,7 +33,7 @@ LOOKBACK_DAYS = int(os.environ.get("LOOKBACK_DAYS", "30"))
 MAX_PAGES = int(os.environ.get("MAX_PAGES", "200"))  # 1 quota unit each, 10,000/day free
 LOCAL_TZ = timezone(timedelta(hours=8))  # Cebu
 HAIKU_MODEL = os.environ.get("HAIKU_MODEL", "claude-haiku-5-5")
-BATCH = 100
+BATCH = 200
 
 YT_KEY = os.environ.get("YT_API_KEY", "")
 ANTHROPIC_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
@@ -222,36 +222,54 @@ def ask_haiku(batch):
         return []
 
 
-gemini_model = GEMINI_MODEL
 GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta"
+gemini_model = None          # chosen on first use
+gemini_exhausted = set()     # models whose daily free quota ran out this run
 
 
-def pick_gemini_model(exclude):
-    """Find a current Flash model this key can use, newest first."""
+class AIQuotaExhausted(Exception):
+    pass
+
+
+def gemini_models():
+    """Models this key can call, best first: newest Flash-Lite (fast, bigger free quota), then Flash."""
     r = requests.get(f"{GEMINI_BASE}/models", params={"key": GEMINI_KEY, "pageSize": 200}, timeout=30)
     if r.status_code != 200:
-        return None
+        return []
     names = [m["name"].split("/", 1)[-1] for m in r.json().get("models", [])
              if "generateContent" in m.get("supportedGenerationMethods", [])]
-    flash = [n for n in names if "flash" in n and n not in exclude
-             and not any(x in n for x in ("lite", "image", "tts", "live", "audio", "thinking", "exp"))]
+    bad = ("image", "tts", "live", "audio", "thinking", "exp", "embedding")
+    usable = [n for n in names if "flash" in n and not any(x in n for x in bad)]
 
-    def version(n):
+    def rank(n):
         m = re.search(r"gemini-(\d+(?:\.\d+)?)", n)
-        return (float(m.group(1)) if m else 0, "preview" not in n, -len(n))
+        return ("lite" in n, float(m.group(1)) if m else 0, "preview" not in n, -len(n))
 
-    flash.sort(key=version, reverse=True)
-    return flash[0] if flash else None
+    return sorted(usable, key=rank, reverse=True)
+
+
+def next_gemini_model():
+    global gemini_model
+    if os.environ.get("GEMINI_MODEL") and os.environ["GEMINI_MODEL"] not in gemini_exhausted:
+        gemini_model = os.environ["GEMINI_MODEL"]
+        return gemini_model
+    for m in gemini_models() or [GEMINI_MODEL]:
+        if m not in gemini_exhausted:
+            gemini_model = m
+            return m
+    gemini_model = None
+    return None
 
 
 def ask_gemini(batch):
     global gemini_model
+    if gemini_model is None and not next_gemini_model():
+        raise AIQuotaExhausted("no Gemini model left with free quota today")
     lines = "\n".join(f"{i}\t{c['text'][:300]}" for i, c in enumerate(batch))
     body = {
         "contents": [{"parts": [{"text": PROMPT + lines}]}],
         "generationConfig": {"responseMimeType": "application/json", "temperature": 0},
     }
-    tried = set()
     attempt = 0
     while True:
         url = f"{GEMINI_BASE}/models/{gemini_model}:generateContent"
@@ -263,17 +281,20 @@ def ask_gemini(batch):
                 print(f"Gemini request failed ({type(e).__name__}), retrying in {15 * attempt}s.")
                 time.sleep(15 * attempt)
                 continue
-            sys.exit(f"Gemini kept timing out: {e}")
+            raise AIQuotaExhausted(f"Gemini kept timing out: {e}")
         if r.status_code == 200:
             print(f"Gemini {gemini_model} answered in {r.elapsed.total_seconds():.0f}s.")
             break
-        if r.status_code == 404 and gemini_model not in tried:
-            tried.add(gemini_model)
-            nxt = pick_gemini_model(tried)
-            if nxt:
-                print(f"Gemini model {gemini_model} isn't available, switching to {nxt}.")
-                gemini_model = nxt
+        daily = r.status_code == 429 and ("PerDay" in r.text or "per day" in r.text.lower())
+        if r.status_code == 404 or daily:
+            why = "used up its free daily quota" if daily else "isn't available"
+            gemini_exhausted.add(gemini_model)
+            old = gemini_model
+            if next_gemini_model():
+                print(f"Gemini model {old} {why}, switching to {gemini_model}.")
+                attempt = 0
                 continue
+            raise AIQuotaExhausted(f"Gemini model {old} {why} and no other model is left")
         if (r.status_code == 429 or r.status_code >= 500) and attempt < 5:
             attempt += 1
             print(f"Gemini returned {r.status_code}, retrying in {20 * attempt}s.")
@@ -289,13 +310,30 @@ def ask_gemini(batch):
         return []
 
 
+# Cheap local filter: only comments that could plausibly contain a username go to the AI.
+HINT = re.compile(
+    r"\b(roblox|rblx|user\s*name|username|user|usr|name|ign|id|add|put|avatar|i'?m|im|me in|waiting|"
+    r"join(?:ed)?|feature|include|shout\s*out|pick me|my acc(?:ount)?)\b", re.I)
+TOKEN = re.compile(r"(?<![A-Za-z0-9_])@?([A-Za-z0-9_]{3,20})(?![A-Za-z0-9_])")
+
+
+def maybe_username(text):
+    tokens = [t.lstrip("@") for t in TOKEN.findall(text)]
+    for t in tokens:
+        if UNAME.match(t) and re.search(r"[A-Za-z]", t) and re.search(r"[\d_]", t) and len(t) >= 4:
+            return True  # e.g. Cool_Kid, potatos00030
+    return bool(HINT.search(text)) and any(len(t) >= 5 for t in tokens)
+
+
 use_claude = bool(ANTHROPIC_KEY)
+ai_exhausted = False
 
 
 def find_usernames(comments):
-    """Returns {comment_id: username or None} for every comment given."""
-    global use_claude
-    result = {c["id"]: None for c in comments}
+    """Returns {comment_id: username or None} for the comments actually checked.
+    Comments left out of the result (AI quota ran out) should be retried next run."""
+    global use_claude, ai_exhausted
+    result = {}
     method = "Claude Haiku" if use_claude else "Gemini" if GEMINI_KEY else "pattern matching"
     print(f"Finding usernames with {method}.")
     for start in range(0, len(comments), BATCH):
@@ -312,13 +350,20 @@ def find_usernames(comments):
         elif GEMINI_KEY:
             if start:
                 time.sleep(GEMINI_GAP_SECONDS)
-            hits = ask_gemini(batch)
+            try:
+                hits = ask_gemini(batch)
+            except AIQuotaExhausted as e:
+                ai_exhausted = True
+                print(f"Stopping AI checks for today: {e}.")
+                return result
         else:
             hits = []
             for i, c in enumerate(batch):
                 m = PATTERN.search(c["text"])
                 if m:
                     hits.append({"i": i, "username": m.group(1)})
+        for c in batch:
+            result[c["id"]] = None
         for h in hits:
             try:
                 c = batch[int(h.get("i"))]
@@ -327,7 +372,7 @@ def find_usernames(comments):
             u = str(h.get("username") or "").lstrip("@").strip()
             if UNAME.match(u) and u.lower() in c["text"].lower():
                 result[c["id"]] = u
-        print(f"Checked {min(start + BATCH, len(comments))}/{len(comments)} new comments for usernames.")
+        print(f"Checked {min(start + BATCH, len(comments))}/{len(comments)} likely comments for usernames.")
     return result
 
 
@@ -371,17 +416,24 @@ def main():
     scanned = load(SCANNED_FILE, {})  # comment_id -> published
     comments = fetch_comments(window_start)
     new = [c for c in comments if c["id"] not in scanned]
+    likely = [c for c in new if maybe_username(c["text"])]
+    for c in new:
+        if not maybe_username(c["text"]):
+            scanned[c["id"]] = c["published"]   # no possible username, never needs the AI
+    print(f"{len(new)} new comments, {len(likely)} might contain a username.")
     total_found = 0
-    CHUNK = BATCH * 10  # save progress every 10 batches
+    CHUNK = BATCH * 5  # save progress every 5 batches
 
     def merge(chunk, found):
-        nonlocal_found = 0
+        n = 0
         for c in chunk:
+            if c["id"] not in found:
+                continue                        # not checked yet (quota ran out), retry next run
             scanned[c["id"]] = c["published"]
-            u = found.get(c["id"])
+            u = found[c["id"]]
             if not u:
                 continue
-            nonlocal_found += 1
+            n += 1
             key = u.lower()
             cur = candidates.get(key)
             if cur and cur.get("last_mentioned_at", "") >= c["published"]:
@@ -396,15 +448,20 @@ def main():
                 "picked_at": (cur or {}).get("picked_at"),
                 "pick_count": (cur or {}).get("pick_count", 0),
             }
-        return nonlocal_found
+        return n
 
-    for i in range(0, len(new), CHUNK):
-        chunk = new[i:i + CHUNK]
+    save(SCANNED_FILE, {k: v for k, v in scanned.items() if v > window_start})
+    for i in range(0, len(likely), CHUNK):
+        chunk = likely[i:i + CHUNK]
         total_found += merge(chunk, find_usernames(chunk))
         # save progress so a failure later doesn't redo this chunk
         save(SCANNED_FILE, {k: v for k, v in scanned.items() if v > window_start})
         save(CANDIDATES_FILE, candidates)
-    print(f"{total_found} usernames found in {len(new)} new comments.")
+        if ai_exhausted:
+            left = sum(1 for c in likely if c["id"] not in scanned)
+            print(f"{left} likely comments left to check; the next run continues with them.")
+            break
+    print(f"{total_found} usernames found this run.")
 
     # 2. Pick.
     if not args.no_pick:
