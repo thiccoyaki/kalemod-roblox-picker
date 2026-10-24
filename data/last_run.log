@@ -1,0 +1,27 @@
+07:49:41 Read 109 page(s) of channel comment threads, 11978 comments in window.
+07:49:41 Finding usernames with Claude Haiku.
+07:49:42 Anthropic API error 400: {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CgL4hccmMArdqAqT3izYg"}
+07:49:42 Claude isn't usable, switching to Gemini.
+07:50:29 Gemini gemini-3.8-flash answered in 47s.
+07:50:29 Checked 100/1000 new comments for usernames.
+07:52:31 Gemini gemini-3.8-flash answered in 115s.
+07:52:31 Checked 200/1000 new comments for usernames.
+07:52:38 Gemini returned 429, retrying in 20s.
+07:53:21 Gemini gemini-3.8-flash answered in 23s.
+07:53:21 Checked 300/1000 new comments for usernames.
+07:55:06 Gemini gemini-3.8-flash answered in 98s.
+07:55:06 Checked 400/1000 new comments for usernames.
+07:56:14 Gemini gemini-3.8-flash answered in 60s.
+07:56:14 Checked 500/1000 new comments for usernames.
+07:56:21 Gemini returned 429, retrying in 20s.
+07:58:25 Gemini gemini-3.8-flash answered in 104s.
+07:58:25 Checked 600/1000 new comments for usernames.
+07:58:32 Gemini returned 429, retrying in 20s.
+07:58:52 Gemini returned 429, retrying in 40s.
+07:59:32 Gemini returned 429, retrying in 60s.
+08:00:32 Gemini returned 429, retrying in 80s.
+08:01:53 Gemini returned 429, retrying in 100s.
+08:03:33 Gemini API error 429 (gemini-3.8-flash): {
+08:03:33   "error": {
+08:03:33     "code": 429,
+08:03:33     "message": "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.8-flash, description: Generate content requests per day limit exceeded on Free Tier
