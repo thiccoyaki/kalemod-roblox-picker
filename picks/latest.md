@@ -1,47 +1,47 @@
-# Kalemod Roblox picks for 2026-10-25
+# Kalemod Roblox picks for 2026-10-26
 
 20 usernames.
 
-1. `bluelovey4`
-2. `xxxxxAyaan`
-3. `Fashata9`
-4. `Ajyu472`
-5. `underbreath9`
-6. `Arctic0015`
-7. `thortinthor`
-8. `MoobagAmy1`
-9. `Sonicfan67081`
-10. `Biaba_63`
-11. `FilipErBest24`
-12. `chr1s672`
-13. `Secret_doggirl7`
-14. `edo_reom`
-15. `stopballer38`
-16. `MUZAINA1317`
-17. `joanna_playsrobloxla`
-18. `cooldude312349`
-19. `Realoliverplays`
-20. `dbz2574`
+1. `Lewpew32`
+2. `rustyhen13`
+3. `giveoutlillbro`
+4. `redman1013v`
+5. `Blink_hinata222`
+6. `aidan9410`
+7. `Cjdead12`
+8. `Messibaby95`
+9. `MOONDIY1234`
+10. `Pinda428`
+11. `robodog456642`
+12. `Strawhatluffy1115`
+13. `Sifu4895`
+14. `AgentBadSpelling`
+15. `Veronica1239823`
+16. `Contardo_17`
+17. `KENE062017`
+18. `ogla52`
+19. `bacon_starloot`
+20. `00flow`
 
 ## Where they came from
 
-- **bluelovey4** (@Chunkmunk18, The Chained Liar ⛓️‍💥 | Part 2): can i be a part of the video my user is bluelovey4 i subscribed
-- **xxxxxAyaan** (@Chance_Youtube, The Red Plague 🚩| Part 2): @kalemod i joined your community my username is xxxxxAyaan, im following you now too :D also pls add me im your biggest fan
-- **Fashata9** (@Shaa-d2t, The Selfless Lie 🤥): Fashata9
-- **Ajyu472** (@AminJ-b6d, The Erasing Eye 👁️): Ajyu472 (use for a vid)
-- **underbreath9** (@cyruswave789, The Crying Goblin 👺): Username is underbreath9 making sure you don't forget thank you
-- **Arctic0015** (@Pancake_XD-Official, The Erasing Eye 👁️): Arctic0015 day 3
-- **thortinthor** (@cryingchild72, The Photo Possession 🎞️): Yes I would. My user is thortinthor
-- **MoobagAmy1** (@AmyOsborne-n8j, The Impending Sneeze 💣): MoobagAmy1
-- **Sonicfan67081** (@earleandavis7297, The Sleepless Town 🛏️): Sonicfan67081
-- **Biaba_63** (@IqraAbdullahi-e6k, The Slow Runner 🏃‍♂️): Biaba_63👍 that's my username
-- **FilipErBest24** (@JustynaDebinska-s4n, The Red Plague 🚩): ITS MY SKIN I HAVE LIKE THAT JUST TYPE FilipErBest24 OMG MY SKIN🎉 ps: just the clothes and bacon hair:
-- **chr1s672** (@Chr1sgames.youtube, The Grounded Anchor ⚓️): Do me chr1s672
-- **Secret_doggirl7** (@Izzyx-u4l, The Slow Runner 🏃‍♂️): Secret_doggirl7 pls
-- **edo_reom** (@Amdamdhi, The Blinking Hollow 👁️): Can u add me in the next video??? I subed and liked this vid (anyways my user is edo_reom)
-- **stopballer38** (@NereydaCastroFajardo, The Jumping Dilemma 🥾): pls... add me in a animation im a fan my user is stopballer38 :)
-- **MUZAINA1317** (@Ilove_spicyfood0, The Cloning Anomaly 📝): MUZAINA1317
-- **joanna_playsrobloxla** (@joanna_473, The Photo Possession 🎞️): can i be a character? user:joanna_playsrobloxla
-- **cooldude312349** (@Radiatin3, The Lying Sky 🌚): cooldude312349
-- **Realoliverplays** (@Oliverlolzs): Realoliverplays still waiting
-- **dbz2574** (@manishagarwal3600, In This World.. Everyone Has a Spirit Family🧑‍🧑‍🧒 | Part 2): Pls choose me for next video username dbz2574
+- **Lewpew32** (@Thezxer23, The Beautiful Plague 💅): Lewpew32 and definitely no I’m not risking nathan
+- **rustyhen13** (@scotttomlinson1247, The Masking Bully 🎭): Bumble bee I’m rustyhen13 plsssss
+- **giveoutlillbro** (@adminguygd, The Murky Prison 🌊): Yay I'm second can I be next user is giveoutlillbro❤
+- **redman1013v** (@TyriqueVortes, The Erasing Eye 👁️): My user name is redman1013v pls add me to a vid I love these
+- **Blink_hinata222** (@Blink_hinata222, The Blinking Hollow 👁️): Blink_hinata222
+- **aidan9410** (@nicoledarcy9395, The Slow Runner 🏃‍♂️): aidan9410 I don't think I would survive
+- **Cjdead12** (@carlos_6481, The Red Plague 🚩): Cjdead12
+- **Messibaby95** (@EliciaAlvarez-x1c, The Blinking Hollow 👁️): Messibaby95
+- **MOONDIY1234** (@nofshh9906, The Photo Possession 🎞️): Yo, can I be in your video? My username is. MOONDIY1234
+- **Pinda428** (@KaleStewart, The Flicker Blade 🌀): Pinda428
+- **robodog456642** (@MaxDon_Blox, The Slow Runner 🏃‍♂️): maxola358 and my brother robodog456642
+- **Strawhatluffy1115** (@tamil_luffy_1234, The Chained Liar ⛓️‍💥 | Part 2): Strawhatluffy1115
+- **Sifu4895** (@mubinhossein, The Dangerous Drawings ✍️): Sifu4895
+- **AgentBadSpelling** (@AgentBadSpelling, The Chained Liar ⛓️‍💥 | Part 2): Add me in my user is AgentBadSpelling
+- **Veronica1239823** (@mamathabafna7529, The Starving Force 💪): Please take me in next video Veronica1239823
+- **Contardo_17** (@kudanill-k1q, The Photo Possession 🎞️): Can i be in your vid Username Contardo_17 Ty
+- **KENE062017** (@enyinnayaokoroafor, The Lying Sky 🌚): PUT MY AVATAR IN AN ANIMATION MY USER IS KENE062017
+- **ogla52** (@Buzz_cinema, The Red Plague 🚩): ogla52
+- **bacon_starloot** (@Ahhfreshtoes, The Lying Sky 🌚): Yo bro try bacon_starloot Cus I'm shirtless for some reason so I wanna see what you'd do with that
+- **00flow** (@OllyMcgoon, The Flicker Blade 🌀): MEEEE it’s 00flow
