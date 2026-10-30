@@ -1,47 +1,47 @@
-# Kalemod Roblox picks for 2026-10-29
+# Kalemod Roblox picks for 2026-10-30
 
 20 usernames.
 
-1. `YEL_200IQ`
-2. `itzzvaleeeee`
-3. `America_PlayzYT`
-4. `Darkslayer432`
-5. `liamHAALANDfan`
-6. `Fallingsigma10`
-7. `Katsukibakugo_256`
-8. `Vlorn_C`
-9. `Embodyingstew10`
-10. `bunz_bunny124`
-11. `Jaystewjr2012`
-12. `Ghostboah`
-13. `Tang1234552`
-14. `Ebi_Purp74`
-15. `ethan_beast000`
-16. `Dan_Dim5`
-17. `JustTNTquann`
-18. `AKalways9891`
-19. `FIRYALMANS`
-20. `Tensixfive88`
+1. `Joeldan1235`
+2. `iamanoobofbladeball`
+3. `Djaylano2017h`
+4. `Ramiro_best2`
+5. `amiibo400`
+6. `Bro_man727`
+7. `Peterkierulf`
+8. `Chenty53`
+9. `imadethis_accountidk`
+10. `jake_gwapo7773`
+11. `gatato_chucky`
+12. `rojocapo25`
+13. `Yugi_demon666`
+14. `troxsdagoat`
+15. `likekable123`
+16. `Jainer_12337`
+17. `JJruiz12341234`
+18. `Emilek50008`
+19. `TheFunnyLion_yt11145`
+20. `Herobrine23980`
 
 ## Where they came from
 
-- **YEL_200IQ** (@nazifa1828, The Slow Runner 🏃‍♂️): yo man u are the best yt ever can u please add my username called Ramiro_best2 and my display name is YEL_200IQ ty if u do
-- **itzzvaleeeee** (@aurelia9377, The Photo Possession 🎞️): my user is itzzvaleeeee
-- **America_PlayzYT** (@AsterSonnenlicht, The Unspeakable Words 👩‍❤️‍👨): Try my acc next: America_PlayzYT, display name is Subject_0G
-- **Darkslayer432** (@gamer-p7d2i, The Erasing Eye 👁️): Darkslayer432
-- **liamHAALANDfan** (@Liamgamer00, In This World.. Everyone Has a Spirit Family🧑‍🧑‍🧒 | Part 2): Can you include me im subbed username:liamHAALANDfan
-- **Fallingsigma10** (@MichalindaSeas, The Chained Liar ⛓️‍💥 | Part 2): Fallingsigma10
-- **Katsukibakugo_256** (@ZadorieM, The Red Plague 🚩): Katsukibakugo_256 or hagalitgen
-- **Vlorn_C** (@Vlorn_C, The Grounded Anchor ⚓️): Wwwww i lovw this bro can i be in a video i love your videos Vlorn_C
-- **Embodyingstew10** (@gamingwitz7365, The Blinking Hollow 👁️): Embodyingstew10
-- **bunz_bunny124** (@bunz124theboi, The Photo Possession 🎞️): Add me if you want Username: bunz_bunny124
-- **Jaystewjr2012** (@JayStewart-h3x, The Grounded Anchor ⚓️): Jaystewjr2012 please
-- **Ghostboah** (@NoahTurner-o8s, The Chained Liar ⛓️‍💥 | Part 2): Ghostboah is my user my display is xdarkness
-- **Tang1234552** (@WanchatDokkpew, The Erasing Eye 👁️): Tang1234552
-- **Ebi_Purp74** (@Ebrahim-d7r9d, The Crying Goblin 👺): Ebi_Purp74
-- **ethan_beast000** (@belindaval-t7p, The Happy Place 🎂 | Part 2): can you add me pls ethan_beast000
-- **Dan_Dim5** (@DavidAyenor, The Impending Sneeze 💣): Dan_Dim5 i liked and subbed
-- **JustTNTquann** (@lmN0Tm3ta): Can you add me my username is JustTNTquann
-- **AKalways9891** (@AKalways9891, The Photo Possession 🎞️): AKalways9891 use that for a vid please
-- **FIRYALMANS** (@FiryalAafiya, The Sleepless Town 🛏️ | Part 2): Pls my user FIRYALMANS
-- **Tensixfive88** (@CohenTheHamNerd, The Slow Runner 🏃‍♂️): Tensixfive88
+- **Joeldan1235** (@TheC00lst0ne0FALL, The Fabricated History 📖): May i pls be in a video Joeldan1235 ❤ (joel)
+- **iamanoobofbladeball** (@g_ossip, The Photo Possession 🎞️): can i be in a vid im subbed! User is iamanoobofbladeball
+- **Djaylano2017h** (@DjaylanoHooijer-n7t, The Slow Runner 🏃‍♂️): Can i be in a video my name is Djaylano2017h
+- **Ramiro_best2** (@nazifa1828, The Fading Camera 📸): pls add Ramiro_best2 plsss
+- **amiibo400** (@superledgeAdam, The Unlethal Voice 🎤): Can I be in a video my username is amiibo400
+- **Bro_man727** (@JaiDay-r2x, The Chained Liar ⛓️‍💥 | Part 2): Bro_man727
+- **Peterkierulf** (@BawkBawkSigmaLandPerson, The Chained Liar ⛓️‍💥 | Part 2): Put me in the screenshot:Peterkierulf
+- **Chenty53** (@KruNuchsy, In This World.. Everyone Has a Spirit Family 👨‍👩‍👧‍👦): First guy skin look like me and how did him wear thai hat?!?? It’s look like me so much(Chenty53)
+- **imadethis_accountidk** (@Blcyn_Gd, The Cloning Anomaly 📝): imadethis_accountidk
+- **jake_gwapo7773** (@JakeNiñoFundador, The Blinking Hollow 👁️): pls me jake_gwapo7773
+- **gatato_chucky** (@rats_cilper, The Photo Possession 🎞️): mine its gatato_chucky
+- **rojocapo25** (@BenjaminOrihuela-k5e, The Blinking Hollow 👁️): Stop saying early -_- (kale, if you see me im rojocapo25 that i want to be in the next video)
+- **Yugi_demon666** (@RosaCason-o5k, The Slow Runner 🏃‍♂️): Yugi_demon666(I'm a speed demon)
+- **troxsdagoat** (@lmN0Tm3ta, The Murky Prison 🌊): I joined the group can I be added my username is troxsdagoat
+- **likekable123** (@nghilenguyen-uv3ru, The Chained Liar ⛓️‍💥 | Part 2): yo, my username is likekable123 My display would be: Unlikekable321
+- **Jainer_12337** (@DavinjohnBentulan-o8f, The Grounded Anchor ⚓️): Jainer_12337 please
+- **JJruiz12341234** (@The_prototype-v6f): Add JJruiz12341234 plz
+- **Emilek50008** (@Emil-mm4bi, The Sleepless Town 🛏️ | Part 2): Emilek50008
+- **TheFunnyLion_yt11145** (@Jammy-v3t, The Erasing Eye 👁️): PLEASE CAN YOU MAKE MY AVATAR ON NEXT VIDEO USER TheFunnyLion_yt11145 YOUR MAJESTYUY
+- **Herobrine23980** (@KyleCheong-r1y3q, The Blinking Hollow 👁️): Herobrine23980
