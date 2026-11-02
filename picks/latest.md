@@ -1,47 +1,47 @@
-# Kalemod Roblox picks for 2026-11-01
+# Kalemod Roblox picks for 2026-11-02
 
 20 usernames.
 
-1. `Seal_Gubby`
-2. `solo_gamerxs`
-3. `9k00`
-4. `venkat382`
-5. `Z_volt66`
-6. `YUCKY_LUCY`
-7. `ProPlayerBlox814`
-8. `BOY9X07`
-9. `KingG252015`
-10. `nickdestruction5`
-11. `ecilgloc`
-12. `im2evil_7`
-13. `EL45VR`
-14. `Jazztijger13`
-15. `Mints643`
-16. `johnhunter2014`
-17. `Daisysalt_51`
-18. `Unicorngirlrose87`
-19. `whitney034`
-20. `Chefmuffin1`
+1. `AdaanTheFirst`
+2. `rosaisback8813`
+3. `UN_MAN230`
+4. `Oyuncu25631`
+5. `MARK_NEIL0S`
+6. `ananmyanmar`
+7. `Bestplayer5526`
+8. `RemiMemeGuy`
+9. `EmanuelX211`
+10. `Pizzamgt16`
+11. `naxyboy11`
+12. `Sam115963`
+13. `terfarri`
+14. `Kaliaa1716`
+15. `Caiokiwi100`
+16. `X1m3na2015`
+17. `Sabgrindacc67`
+18. `Skywing_lov2`
+19. `okrooan`
+20. `Shou_Rya160`
 
 ## Where they came from
 
-- **Seal_Gubby** (@Kriperok_DJ, The Fabricated History 📖): Can I be in vid? Seal_Gubby ))
-- **solo_gamerxs** (@AmazingMax-wk7id, The Slow Runner 🏃‍♂️): Add me dawg solo_gamerxs counting on ya reply to me
-- **9k00** (@uriz420, The Blinking Hollow 👁️): my user is 9k00
-- **venkat382** (@Venkatboss310, In This World, I Grew Bigger When I Got Mad 💪): pls add me in your next video ❤❤ venkat382
-- **Z_volt66** (@Gcc-l6v, The Erasing Eye 👁️): Z_volt66 you should see sitam or verity
-- **YUCKY_LUCY** (@JujiLove, The Chained Liar ⛓️‍💥 | Part 2): YUCKY_LUCY!
-- **ProPlayerBlox814** (@Sharpend-Blade9174, The Traded Years 🤝): ProPlayerBlox814
-- **BOY9X07** (@princykannan1650, The Photo Possession 🎞️): BOY9X07, get me
-- **KingG252015** (@Thebestandcoolestbird, The Reality Goggles 🥽): Yo can u do mine KingG252015
-- **nickdestruction5** (@Inconsistable, The Dangerous Drawings ✍️): nickdestruction5
-- **ecilgloc** (@babomitha5349, The Beautiful Plague 💅): Use my avatar pls USERNAME ecilgloc
-- **im2evil_7** (@diontamaynard603, The Rains Plague ☔️): Put me in a video my username is im2evil_7
-- **EL45VR** (@Rehan_Gaming_8, The Beautiful Plague 💅): ​@EL45VR wht!! DO U THINK ITS NORMAL!!!
-- **Jazztijger13** (@Jazztube2, The Riddler’s Rooms 🧩): Can you do mine user:Jazztijger13
-- **Mints643** (@littleducklings1234, The Red Plague 🚩): Mints643
-- **johnhunter2014** (@beardeddragon48): Can you please put me in the video username johnhunter2014
-- **Daisysalt_51** (@littler_pear, The Slow Runner 🏃‍♂️): Daisysalt_51
-- **Unicorngirlrose87** (@shulanwang6464, The Crying Goblin 👺): Unicorngirlrose87
-- **whitney034** (@Tashya-y2q, The Unstopping Life 🕺): that’s me🥹 (whitney034 check for ur selfs-)
-- **Chefmuffin1** (@Number1CoffeeMareepHater, The Red Plague 🚩): Chefmuffin1
+- **AdaanTheFirst** (@RouxlsKaards, The Cloning Anomaly 📝): Wsp Watching your shorts for a while Been seeing those "I'll add your username" comments. Since I got here early.. AdaanTheFirst
+- **rosaisback8813** (@IshaArcane_810, The Reality Goggles 🥽): rosaisback8813
+- **UN_MAN230** (@NicholasGuidi-tq1ib, In This World, I Faced The Giant Face 👁️): UN_MAN230 NOOOO 0:24
+- **Oyuncu25631** (@U.A.AOriginal, The Happy Place 🎂 | Part 2): Oyuncu25631
+- **MARK_NEIL0S** (@LIGHTNING-q8i, The Photo Possession 🎞️): MARK_NEIL0S i wanna be in a video
+- **ananmyanmar** (@nightispoiled): Can you add me to your next vid user is ananmyanmar
+- **Bestplayer5526** (@voidheart5526, The Blinking Hollow 👁️): Can u use: Bestplayer5526 In Ur next video
+- **RemiMemeGuy** (@Hard-GDz, The Reality Goggles 🥽): btw my username is RemiMemeGuy
+- **EmanuelX211** (@EmanuelX211, The Unopened Gateways 🚪): Can you do me next? My user is EmanuelX211
+- **Pizzamgt16** (@PeterTaniane, The Chained Liar ⛓️‍💥 | Part 2): Pizzamgt16😊
+- **naxyboy11** (@boloSheppard-q5r, The Stuttering Singer 🕺🎵): Catnap naxyboy11 I watch him everyday
+- **Sam115963** (@Samuel1159-y9r, The Dragging Mumble 📣): Sam115963
+- **terfarri** (@Goku-p5l, The Erasing Eye 👁️): Can you put my avatar as well in the next one name: terfarri
+- **Kaliaa1716** (@kaliaalyce2480, The Slow Runner 🏃‍♂️): Kaliaa1716
+- **Caiokiwi100** (@Blot_mini, The Red Plague 🚩): Caiokiwi100
+- **X1m3na2015** (@Yoshiayy, The Photo Possession 🎞️): X1m3na2015 : is it my turn yet?
+- **Sabgrindacc67** (@MafiosoStole07n7sSonLol, The Blinking Hollow 👁️): Sabgrindacc67
+- **Skywing_lov2** (@rainy-noon-24-7, The Chained Liar ⛓️‍💥 | Part 2): Skywing_lov2 !
+- **okrooan** (@Okrooan, The Blinking Hollow 👁️): Can I be here 5th try username is okrooan pls
+- **Shou_Rya160** (@YoursLk, The Riddler’s Rooms 🧩): Kalemond I am a fan can I please be in the next short my user is @Shou_Rya160
