@@ -1,10 +1,10 @@
-14:06:40 Read 71 page(s) of channel comment threads, 7741 comments in window.
-14:06:40 63 new comments, 9 might contain a username.
-14:06:40 Finding usernames with Claude Haiku.
-14:06:40 Anthropic API error 400: {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011Cgpxaewt3rSoxjwuLNJAW"}
-14:06:40 Claude isn't usable, switching to Gemini.
-14:06:41 Gemini gemini-3.5-flash-lite answered in 1s.
-14:06:41 Checked 9/9 likely comments for usernames.
-14:06:41 7 usernames found this run.
-14:06:41 Picked 5 today (5/20). 0 still unpicked.
-14:06:41 Not enough unpicked usernames left. Run the workflow with reset to start over.
+14:38:45 Read 66 page(s) of channel comment threads, 7123 comments in window.
+14:38:45 74 new comments, 6 might contain a username.
+14:38:45 Finding usernames with Claude Haiku.
+14:38:45 Anthropic API error 400: {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CgrtqWMenMUGCU5QeH4RL"}
+14:38:45 Claude isn't usable, switching to Gemini.
+14:38:46 Gemini gemini-3.5-flash-lite answered in 1s.
+14:38:46 Checked 6/6 likely comments for usernames.
+14:38:46 0 usernames found this run.
+14:38:46 Picked 0 today (0/20). 0 still unpicked.
+14:38:46 Not enough unpicked usernames left. Run the workflow with reset to start over.
