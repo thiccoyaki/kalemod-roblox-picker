@@ -1,10 +1,5 @@
-14:29:01 Read 37 page(s) of channel comment threads, 4095 comments in window.
-14:29:01 25 new comments, 3 might contain a username.
-14:29:01 Finding usernames with Claude Haiku.
-14:29:01 Anthropic API error 400: {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011Ch2M8ziWGaASgpf3vfy3Z"}
-14:29:01 Claude isn't usable, switching to Gemini.
-14:29:02 Gemini gemini-3.5-flash-lite answered in 1s.
-14:29:02 Checked 3/3 likely comments for usernames.
-14:29:02 1 usernames found this run.
-14:29:02 Picked 0 today (0/20). 0 still unpicked.
-14:29:02 Not enough unpicked usernames left. Run the workflow with reset to start over.
+14:38:08 Read 34 page(s) of channel comment threads, 3736 comments in window.
+14:38:08 32 new comments, 0 might contain a username.
+14:38:08 0 usernames found this run.
+14:38:08 Picked 0 today (0/20). 0 still unpicked.
+14:38:08 Not enough unpicked usernames left. Run the workflow with reset to start over.
