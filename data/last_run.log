@@ -1,10 +1,10 @@
-16:24:52 Read 21 page(s) of channel comment threads, 2237 comments in window.
-16:24:52 135 new comments, 14 might contain a username.
-16:24:52 Finding usernames with Claude Haiku.
-16:24:53 Anthropic API error 401: {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011ChRDgRhBz585E3DTb6Bmm"}
-16:24:53 Claude isn't usable, switching to Gemini.
-16:24:53 Gemini gemini-3.5-flash-lite answered in 1s.
-16:24:53 Checked 14/14 likely comments for usernames.
-16:24:53 1 usernames found this run.
-16:24:53 Picked 1 today (1/20). 0 still unpicked.
-16:24:53 Not enough unpicked usernames left. Run the workflow with reset to start over.
+16:39:33 Read 21 page(s) of channel comment threads, 2305 comments in window.
+16:39:33 228 new comments, 22 might contain a username.
+16:39:33 Finding usernames with Claude Haiku.
+16:39:33 Anthropic API error 401: {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011ChT8cH7Zko9bsXA4jZjp6"}
+16:39:33 Claude isn't usable, switching to Gemini.
+16:39:34 Gemini gemini-3.5-flash-lite answered in 0s.
+16:39:34 Checked 22/22 likely comments for usernames.
+16:39:34 1 usernames found this run.
+16:39:34 Picked 0 today (0/20). 0 still unpicked.
+16:39:34 Not enough unpicked usernames left. Run the workflow with reset to start over.
